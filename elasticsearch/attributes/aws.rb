@@ -23,7 +23,7 @@ aws = Chef::DataBagItem.load('elasticsearch', 'aws')[node.chef_environment] resc
 # Instead of using AWS access tokens, you can create the instance with a IAM role;
 # see: http://docs.aws.amazon.com/IAM/latest/UserGuide/role-usecase-ec2app.html
 
-default.elasticsearch['plugins']['elasticsearch/elasticsearch-cloud-aws']['version'] = '1.14.0'
+default.elasticsearch['plugins']['elasticsearch/elasticsearch-cloud-aws']['version'] = '2.6.0'
 
 # === AWS ===
 # AWS configuration is set based on data bag values.
