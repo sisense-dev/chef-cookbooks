@@ -19,13 +19,21 @@
 # limitations under the License.
 #
 
-include_recipe 'runit'
-include_recipe 'metachef'
-include_recipe 'redis::default'
-
 daemon_user(:redis) do
   home          node[:redis][:data_dir]
 end
+
+case node[:platform]
+when "centos", "redhat"
+  include_recipe 'yum::epel'
+  package "redis"
+when "debian", "ubuntu"
+  package "redis-server"
+end
+
+include_recipe 'runit'
+include_recipe 'silverware'
+include_recipe 'redis::default'
 
 standard_dirs('redis.server') do
   directories   :conf_dir, :log_dir, :data_dir
