@@ -1,5 +1,0 @@
-= Cluster Directory
-
-== Overview
-
-Writes a config file with discovered components.
