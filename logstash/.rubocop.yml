@@ -1,60 +1,34 @@
 AllCops:
-  Exclude:
-    - 'vendor/**/*'
-    - 'test/support/**'
-    - 'bin/**/*'
   Include:
-    - '**/Rakefile'
-    - '**/Gemfile'
-    - '**/Vagrantfile'
-    - '**/Berksfile'
-CyclomaticComplexity:
+    - Gemfile
+    - attributes/**/*
+    - recipes/**/*
+    - libraries/**/*
+    - providers/**/*
+    - resources/**/*
+  Exclude:
+    - metadata.rb
+    - test/**/*
+    - vendor/**/*
+    - .berkshelf/cookbooks/**/*
+
+Encoding:
   Enabled: false
 
 LineLength:
-  Enabled: true
-  Max: 200
-
-MethodLength:
-  Enabled: true
-  Max: 20
-
-AccessorMethodName:
-  Enabled: false
-
-ClassAndModuleChildren:
-  Enabled: false
-
-UselessAssignment:
-  Enabled: false
-
-BlockNesting:
-  Max: 4
-
-Documentation:
   Enabled: false
 
 MethodLength:
-  Max: 50
-
-SingleSpaceBeforeFirstArg:
   Enabled: false
 
-Style/WordArray:
-  MinSize: 5
-
-Style/RedundantBegin:
+NumericLiterals:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/NumericLiterals:
-  MinDigits: 6
+HashSyntax:
+  Enabled: false
 
-# Offense count: 9
+RescueModifier:
+  Enabled: false
+
 Metrics/AbcSize:
-  Max: 78
-
-# Offense count: 8
-Metrics/PerceivedComplexity:
-  Max: 18
+  Max: 30

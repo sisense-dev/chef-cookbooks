@@ -1,9 +1,19 @@
-metadata.json
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+pkg/
 .vagrant
-Berksfile.lock
-vendor/
+
+# Bundler
+bin/*
+.bundle/*
+
 .kitchen/
 .kitchen.local.yml
-.bundle/
-bin/
-Gemfile.lock
+
+.berkshelf/
+reports/
+.yardoc/
