@@ -1,8 +1,0 @@
-filter {
-  if [type] == "test3" {
-    kv {}
-    mutate {
-      add_field => {"it-test" => "test3"}
-    }
-  }
-}

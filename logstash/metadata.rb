@@ -1,16 +1,21 @@
-name             'simple-logstash'
-maintainer       'Yauhen Artsiukhou'
-maintainer_email 'jsirex@gmail.com'
-license          'Apache'
-description      'Installs/Configures simple-logstash. No less. No more.'
-long_description 'Installs/Configures simple-logstash. No less. No more.'
-#issues_url       'https://github.com/jsirex/simple-logstash-cookbook/issues'
-#source_url       'https://github.com/jsirex/simple-logstash-cookbook'
-version          '0.2.3'
+# Encoding: utf-8
+name             'logstash'
+maintainer       'John E. Vincent'
+maintainer_email 'lusis.org+github.com@gmail.com'
+license          'Apache 2.0'
+description      'Installs/Configures logstash'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 
-supports 'debian'
-supports 'ubuntu'
-supports 'centos'
+version          '0.11.7'
 
-depends 'ark'
-depends 'runit'
+%w(ubuntu debian redhat centos scientific amazon fedora).each do |os|
+  supports os
+end
+
+%w(build-essential runit git ant java logrotate python ark curl).each do |ckbk|
+  depends ckbk
+end
+
+%w(apt elasticsearch beaver).each do |ckbk|
+  recommends ckbk
+end
