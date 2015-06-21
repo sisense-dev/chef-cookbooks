@@ -25,7 +25,7 @@ default['kibana']['kibana4_checksum'] = '597e1b1e381b9a9ed9f8a66e115ec4d7a0258fa
 
 #<> The URL to Kibana repository.
 default['kibana']['git']['url'] = if node['kibana']['version'] > '2'
-                                    'https://github.com/elasticsearch/kibana.git'
+                                    'https://github.com/sisense-dev/kibana.git'
                                   else
                                     'https://github.com/rashidkpc/kibana2.git'
                                   end
