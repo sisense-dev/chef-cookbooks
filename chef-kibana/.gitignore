@@ -1,0 +1,27 @@
+.vagrant
+Berksfile.lock
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+/cookbooks
+
+# Bundler
+Gemfile.lock
+.rakeTasks
+bin/*
+.bundle/*
+# Ignore IDEA project files
+/*.iml
+/*.ipr
+/*.iws
+
+# Ignore the generated json file
+/metadata.json
+
+# Ignore the patch file generated when integrating changes
+/patch.*
+.kitchen/
+.kitchen.local.yml
