@@ -1,0 +1,58 @@
+---
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
+  vagrantfile_erb: .kitchen.Vagrantfile.erb
+  plugins:
+    cachier:
+      cache:
+        scope: ":box"
+        auto_detect: false
+        enable:
+          - yum
+          - apt
+        generic_buckets:
+          - ['chef', '/var/chef/cache']
+  network:
+  # Kibana (should be the same as used for Kibana, defaults to 5601)
+  #- ["forwarded_port", {guest: 5601, host: 8081}]
+  customize:
+    memory: 512
+
+provisioner:
+  name: chef_solo
+  solo_rb:
+      ssl_verify_mode: verify_peer
+      file_cache_path: '/var/chef/cache/'
+
+platforms:
+  - name: centos-6.5
+  - name: ubuntu-14.04
+  - name: debian-7.7
+
+suites:
+  - name: default
+    run_list:
+      - recipe[chamber-kibana::default]
+    attributes:
+      java:
+        jdk_version: '7'
+      elasticsearch:
+        version: '1.4.2'
+        allocated_memory: '128m'
+  - name: without_deps
+    run_list:
+      - recipe[apt::default]
+      - recipe[java::default]
+      - recipe[elasticsearch::default]
+      - recipe[chamber-kibana::default]
+    attributes:
+      java:
+        jdk_version: '7'
+      elasticsearch:
+        version: '1.4.2'
+        allocated_memory: '128m'
+      kibana:
+        dependency:
+          install_java: false
+          install_elasticsearch: false
