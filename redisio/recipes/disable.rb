@@ -1,10 +1,9 @@
 #
-# Cookbook Name::       redis
-# Description::         Base configuration for redis
-# Recipe::              default
-# Author::              Benjamin Black (<b@b3k.us>)
+# Cookbook Name:: redisio
+# Recipe:: disable
 #
-# Copyright 2009, Benjamin Black
+# Copyright 2013, Brian Bianco <brian.bianco@gmail.com>
+#
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,16 +18,13 @@
 # limitations under the License.
 #
 
-include_recipe 'silverware'
+redis = node['redisio']
 
-standard_dirs('redis.server') do
-  directories   :conf_dir
+redis['servers'].each do |current_server|
+  server_name = current_server["name"] || current_server["port"]
+  resource = resources("service[redis#{server_name}]")
+  resource.action Array(resource.action)
+  resource.action << :stop
+  resource.action << :disable
 end
 
-template "#{node[:redis][:conf_dir]}/redis.conf" do
-  source        "redis.conf.erb"
-  owner         "root"
-  group         "root"
-  mode          "0644"
-  variables     :redis => node[:redis], :redis_server => node[:redis][:server]
-end
