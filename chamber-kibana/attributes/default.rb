@@ -7,7 +7,7 @@ default['kibana']['host']          = 'http://download.elasticsearch.org'
 default['kibana']['repository']    = nil
 default['kibana']['filename']      = nil
 #default['kibana']['download_url']  = 'https://github.com/sisense-dev/kibana/archive/master.zip'
-default['kibana']['download_url'] = 'http://download.elasticsearch.org'
+default['kibana']['download_url'] = nil
 # === DEPENDENCIES
 #
 default['kibana']['dependency']['install_java']          = false
