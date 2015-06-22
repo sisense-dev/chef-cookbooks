@@ -1,6 +1,1 @@
 source "https://supermarket.getchef.com"
-
-cookbook 'elkstack'
-
-cookbook kibana_lwrp, github: "lusis/chef-kibana"
-cookbook stack_commons, github: "rackspace-cookbooks/stack_commons"
