@@ -1,0 +1,57 @@
+{
+  "name": "stack_commons",
+  "version": "0.0.50",
+  "description": "provides common supporting features for stacks",
+  "long_description": "",
+  "maintainer": "Rackspace",
+  "maintainer_email": "rackspace-cookbooks@rackspace.com",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "build-essential": ">= 0.0.0",
+    "chef-sugar": ">= 0.0.0",
+    "database": ">= 2.3.1",
+    "java": ">= 0.0.0",
+    "memcached": ">= 0.0.0",
+    "mongodb": ">= 0.0.0",
+    "mysql": "~> 5.0",
+    "mysql-multi": "~> 1.0",
+    "mysql2_chef_gem": "~> 1.0",
+    "newrelic": ">= 0.0.0",
+    "newrelic_meetme_plugin": ">= 0.0.0",
+    "newrelic_plugins": ">= 0.0.0",
+    "nginx": ">= 0.0.0",
+    "openssl": "~> 2.0.0",
+    "percona-multi": ">= 0.0.0",
+    "pg-multi": ">= 0.0.0",
+    "php": ">= 0.0.0",
+    "platformstack": ">= 0.0.0",
+    "python": ">= 0.0.0",
+    "rabbitmq": "< 4.0.0",
+    "rackspace_gluster": ">= 0.0.0",
+    "redis-multi": ">= 0.0.0",
+    "uwsgi": ">= 0.0.0",
+    "varnish": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "yum-ius": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}
