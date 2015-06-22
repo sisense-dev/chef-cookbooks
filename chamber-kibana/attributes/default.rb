@@ -1,17 +1,17 @@
 # === VERSION AND LOCATION
 #
-default['kibana']['version']       = '4.0.0-beta3'
+default['kibana']['version']       = '4.1.0'
 # sha256 ( shasum -a 256 FILENAME )
 default['kibana']['checksum']      = 'd593af567c5dd814e59fb2bc2e11a194add6caa0f58c54c82da8fb708554aded'
 default['kibana']['host']          = 'http://download.elasticsearch.org'
 default['kibana']['repository']    = nil
 default['kibana']['filename']      = nil
-default['kibana']['download_url']  = 'https://github.com/sisense-dev/kibana/archive/master.zip'
-
+#default['kibana']['download_url']  = 'https://github.com/sisense-dev/kibana/archive/master.zip'
+default['kibana']['download_url'] = 'http://download.elasticsearch.org'
 # === DEPENDENCIES
 #
-default['kibana']['dependency']['install_java']          = true
-default['kibana']['dependency']['install_elasticsearch'] = true
+default['kibana']['dependency']['install_java']          = false
+default['kibana']['dependency']['install_elasticsearch'] = false
 
 # === NAMING
 #
@@ -44,7 +44,7 @@ default['kibana']['java_opts'] = '-Xms128m -Xmx128m $JAVA_OPTS'
 # Kibana Host
 default['kibana']['http']['host'] = '0.0.0.0'
 # Kibana Port
-default['kibana']['http']['port'] = 5601
+default['kibana']['http']['port'] = 80
 # The Elasticsearch instance to use
 default['kibana']['elasticsearch']['server'] = 'http://127.0.0.1:9200'
 # Kibana uses an index in Elasticsearch to store saved searches, visualizations
