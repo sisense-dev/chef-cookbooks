@@ -1,0 +1,44 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'test/support/**'
+    - 'bin/**/*'
+    - '.kitchen/**/*'
+  Include:
+    - '**/Rakefile'
+    - '**/Gemfile'
+    - '**/Vagrantfile'
+    - '**/Berksfile'
+CyclomaticComplexity:
+  Enabled: false
+
+LineLength:
+  Enabled: true
+  Max: 200
+
+MethodLength:
+  Enabled: false
+
+AccessorMethodName:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
+
+UselessAssignment:
+  Enabled: false
+
+BlockNesting:
+  Max: 4
+
+Documentation:
+  Enabled: false
+
+SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
