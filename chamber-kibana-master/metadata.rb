@@ -20,10 +20,10 @@ See attributes for attribute-control of installed dependencies.
 EOH
 
 # Dependencies
-depends 'chef-sugar', '~> 3.1'
+depends 'chef-sugar', '~> 2.4'
 depends 'line', '~> 0.5'
 depends 'ark', '~> 0.9'
-depends 'apt', '~> 2.7.0'
+depends 'apt', '~> 2.6.0'
 depends 'java', '~> 1.29'
 
 # Optional dependencies
