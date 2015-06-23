@@ -119,7 +119,7 @@ end
 template '/etc/init.d/kibana' do
   source 'kibana.init.erb'
   owner 'root'
-  mode 0755
+  mode 0777
 end
 
 service 'kibana' do
