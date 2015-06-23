@@ -1,6 +1,6 @@
 # Encoding: utf-8
 
-include_recipe 'kibana'
+#include_recipe 'kibana'
 
 if node['kibana']['install_method'] == 'release'
   ark 'kibana' do
