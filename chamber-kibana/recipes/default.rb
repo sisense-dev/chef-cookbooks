@@ -47,16 +47,7 @@ end
 
 # Create service
 #
-template '/etc/init.d/kibana' do
-  source 'kibana.init.erb'
-  owner 'root'
-  mode 0755
-end
 
-service 'kibana' do
-  supports status: true, restart: true
-  action [:enable]
-end
 
 # Download, extract, symlink the kibana libraries and binaries
 #
@@ -64,7 +55,7 @@ ark_prefix_root = node['kibana']['dir'] || node['ark']['prefix_root']
 ark_prefix_home = node['kibana']['dir'] || node['ark']['prefix_home']
 
 filename = node['kibana']['filename'] || "kibana-#{node['kibana']['version']}.tar.gz"
-download_url = node['kibana']['download_url'] || [node['kibana']['host'], node['kibana']['repository'], filename].join('/')
+download_url = node['kibana']['download_url'] #|| [node['kibana']['host'], node['kibana']['repository'], filename].join('/')
 
 ark 'kibana' do
   url download_url
@@ -76,8 +67,8 @@ ark 'kibana' do
   prefix_root ark_prefix_root
   prefix_home ark_prefix_home
 
-  notifies :start,   'service[kibana]' unless node['kibana']['skip_start']
-  notifies :restart, 'service[kibana]' unless node['kibana']['skip_restart']
+  #notifies :start,   'service[kibana]' unless node['kibana']['skip_start']
+  #notifies :restart, 'service[kibana]' unless node['kibana']['skip_restart']
 
   not_if do
     link   = "#{node['kibana']['dir']}/kibana"
@@ -97,7 +88,7 @@ template 'kibana.yml' do
   group node['kibana']['user']
   mode 0755
 
-  notifies :restart, 'service[kibana]' unless node['kibana']['skip_restart']
+ # notifies :restart, 'service[kibana]' unless node['kibana']['skip_restart']
 end
 
 # Note:
@@ -123,4 +114,15 @@ end
 link 'Link kibana configuration file' do
   target_file kibana_config_original
   to "#{node['kibana']['path']['conf']}/kibana.yml"
+end
+
+template '/etc/init.d/kibana' do
+  source 'kibana.init.erb'
+  owner 'root'
+  mode 0755
+end
+
+service 'kibana' do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
 end
