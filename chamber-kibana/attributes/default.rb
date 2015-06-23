@@ -45,7 +45,7 @@ default['kibana']['java_opts'] = '-Xms128m -Xmx128m $JAVA_OPTS'
 # Kibana Host
 default['kibana']['http']['host'] = '0.0.0.0'
 # Kibana Port
-default['kibana']['http']['port'] = 80
+default['kibana']['http']['port'] = 5601
 # The Elasticsearch instance to use
 default['kibana']['elasticsearch']['server'] = 'http://localhost:9200'
 # Kibana uses an index in Elasticsearch to store saved searches, visualizations
