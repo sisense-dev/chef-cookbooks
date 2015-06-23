@@ -25,7 +25,7 @@ default['kibana']['kibana4_checksum'] = '597e1b1e381b9a9ed9f8a66e115ec4d7a0258fa
 
 #<> The URL to Kibana repository.
 default['kibana']['git']['url'] = if node['kibana']['version'] > '2'
-                                    'https://github.com/sisense-dev/kibana.git'
+                                    'https://github.com/elasticsearch/kibana.git'
                                   else
                                     'https://github.com/rashidkpc/kibana2.git'
                                   end
@@ -42,7 +42,7 @@ default['kibana']['rubyversion'] = '1.9.1'
 default['kibana']['interface'] = '127.0.0.1'
 
 #<> The port on which to bind.
-default['kibana']['port'] = 5601
+default['kibana']['port'] = 80
 #<> An Array of the elasticsearch service hosts.
 default['kibana']['elasticsearch']['hosts'] = ['127.0.0.1']
 #<> The port of the elasticsearch http service.

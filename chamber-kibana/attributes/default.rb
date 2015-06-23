@@ -11,8 +11,8 @@ default['kibana']['download_url']  = nil
 
 # === DEPENDENCIES
 #
-default['kibana']['dependency']['install_java']          = true
-default['kibana']['dependency']['install_elasticsearch'] = true
+default['kibana']['dependency']['install_java']          = false
+default['kibana']['dependency']['install_elasticsearch'] = false
 
 # === NAMING
 #
