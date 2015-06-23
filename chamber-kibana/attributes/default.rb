@@ -1,13 +1,13 @@
 # === VERSION AND LOCATION
-#https://download.elastic.co/kibana/kibana/kibana-4.1.0-linux-x64.tar.gz
+#https://download.elastic.co/kibana/kibana/kibana-4.2.0-linux-x64.tar.gz
 
-default['kibana']['version']       = '4.1.0-linux-x64'
+default['kibana']['version']       = '4.2.0-linux-x64'
 # sha256 ( shasum -a 256 FILENAME )
 default['kibana']['checksum']      = 'd593af567c5dd814e59fb2bc2e11a194add6caa0f58c54c82da8fb708554aded'
 default['kibana']['host']          = 'http://download.elastic.co'
 default['kibana']['repository']    = 'kibana/kibana'
 default['kibana']['filename']      = nil
-default['kibana']['download_url']  = nil
+default['kibana']['download_url']  = https://github.com/elastic/kibana/archive/master.zip
 
 # === DEPENDENCIES
 #
@@ -45,7 +45,7 @@ default['kibana']['java_opts'] = '-Xms128m -Xmx128m $JAVA_OPTS'
 # Kibana Host
 default['kibana']['http']['host'] = '0.0.0.0'
 # Kibana Port
-default['kibana']['http']['port'] = 5601
+default['kibana']['http']['port'] = 80
 # The Elasticsearch instance to use
 default['kibana']['elasticsearch']['server'] = 'http://127.0.0.1:9200'
 # Kibana uses an index in Elasticsearch to store saved searches, visualizations
