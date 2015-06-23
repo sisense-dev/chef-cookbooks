@@ -24,4 +24,5 @@ directory node['kibana']['base_dir'] do
   recursive true
 end
 
-include_recipe "kibana::kibana#{node['kibana']['version'][0]}"
+#include_recipe "kibana::kibana#{node['kibana']['version'][0]}"
+include_recipe "chef-kibana::kibana4"
