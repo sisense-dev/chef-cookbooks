@@ -1,6 +1,6 @@
 # Encoding: utf-8
 
-#include_recipe 'kibana'
+include_recipe 'kibana'
 
 if node['kibana']['install_method'] == 'release'
   ark 'kibana' do
@@ -34,4 +34,4 @@ template File.join(node['kibana']['base_dir'], config_path) do
 end
 
 # Install service
-include_recipe 'chef-kibana::_service'
+include_recipe 'kibana::_service'

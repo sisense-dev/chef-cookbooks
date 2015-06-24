@@ -1,7 +1,7 @@
 # Encoding: utf-8
 
 #<> Kibana major version
-default['kibana']['version'] = '4'
+default['kibana']['version'] = '2'
 #<> Kibana3 exact version
 default['kibana']['kibana3_version'] = '3.0.0'
 #<> Kibana4 exact version
@@ -42,7 +42,7 @@ default['kibana']['rubyversion'] = '1.9.1'
 default['kibana']['interface'] = '127.0.0.1'
 
 #<> The port on which to bind.
-default['kibana']['port'] = 80
+default['kibana']['port'] = 5601
 #<> An Array of the elasticsearch service hosts.
 default['kibana']['elasticsearch']['hosts'] = ['127.0.0.1']
 #<> The port of the elasticsearch http service.
