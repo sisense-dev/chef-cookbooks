@@ -34,4 +34,4 @@ template File.join(node['kibana']['base_dir'], config_path) do
 end
 
 # Install service
-include_recipe 'kibana::_service'
+include_recipe 'chef-kibana::_service'

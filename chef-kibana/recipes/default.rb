@@ -27,7 +27,7 @@ end
 #include_recipe "kibana::kibana#{node['kibana']['version'][0]}"
 # Encoding: utf-8
 
-#include_recipe 'kibana'
+include_recipe 'chef-kibana::kibana4'
 
 if node['kibana']['install_method'] == 'release'
   ark 'kibana' do
