@@ -1,0 +1,27 @@
+# CHEF MANAGED FILE: DO NOT EDIT
+# Controlling Cookbook: <%= @cookbook_name %>
+#
+
+type: remote.tcp
+label: Remote check for port <%= @variables['port'] %>
+disabled: <%= @disabled %>
+period: <%= @period %>
+timeout: <%= @timeout %>
+target_hostname: <%= node['cloud']['public_ipv4'] %>
+monitoring_zones_poll:
+  - mzdfw
+  - mzord
+  - mziad
+details:
+  port: <%= @variables['port'] %>
+<% if @alarm %>
+alarms:
+  port-check-<%= @variables['port'] %>:
+    label: Remote check for port <%= @variables['port'] %>
+    notification_plan_id: npTechnicalContactsEmail
+    criteria: |
+      if (metric['tt_connect'] >= 1000) {
+        return new AlarmStatus(CRITICAL, 'Could not connect to port <%= @variables['port'] %> within 1000 milliseconds.');
+      }
+      return new AlarmStatus(OK, 'Connected to port <%= @variables['port'] %> within 1000 milliseconds.');
+<% end %>
