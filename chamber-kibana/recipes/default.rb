@@ -102,7 +102,7 @@ end
 #  line "JAVA_OPTS=\"#{node['kibana']['java_opts']}\""
 #end
 
-kibana_config_original = "#{node['kibana']['dir']}/kibana/src/server/config/kibana.yml"
+kibana_config_original = "#{node['kibana']['dir']}/kibana/config/kibana.yml"
 file "Remove original kibana config - #{kibana_config_original}" do
   path kibana_config_original
   action :delete
