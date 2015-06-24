@@ -45,26 +45,14 @@ directory 'create directory for kibana pid file' do
   recursive true
 end
 
-# Create service
-#
-template '/etc/init.d/kibana' do
-  source 'kibana.init.erb'
-  owner 'root'
-  mode 0755
-end
-
-service 'kibana' do
-  supports status: true, restart: true
-  action [:enable]
-end
-
 # Download, extract, symlink the kibana libraries and binaries
 #
 ark_prefix_root = node['kibana']['dir'] || node['ark']['prefix_root']
 ark_prefix_home = node['kibana']['dir'] || node['ark']['prefix_home']
 
-filename = node['kibana']['filename'] || "kibana-#{node['kibana']['version']}.tar.gz"
-download_url = node['kibana']['download_url'] || [node['kibana']['host'], node['kibana']['repository'], filename].join('/')
+#filename = node['kibana']['filename'] || "kibana-#{node['kibana']['version']}.tar.gz"
+#|| [node['kibana']['host'], node['kibana']['repository'], filename].join('/')
+download_url = node['kibana']['download_url'] 
 
 ark 'kibana' do
   url download_url
@@ -123,4 +111,17 @@ end
 link 'Link kibana configuration file' do
   target_file kibana_config_original
   to "#{node['kibana']['path']['conf']}/kibana.yml"
+end
+
+# Create service
+#
+template '/etc/init.d/kibana' do
+  source 'kibana.init.erb'
+  owner 'root'
+  mode 0755
+end
+
+service 'kibana' do
+  supports status: true, restart: true
+  action [:enable, :restart]
 end
