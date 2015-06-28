@@ -114,12 +114,23 @@ link 'Link kibana configuration file' do
 end
 
 directory "#{node['kibana']['dir']}/kibana" do
-  owner node['kibana']['user']
-  group node['kibana']['user']
-  mode '777'
-  action :create
-  recursive TrueClass
+	owner node['kibana']['user'] and node['kibana']['user'] and mode 0755
+    recursive true
+    action :create
 end
+
+#directory "#{node['kibana']['dir']}/kibana" do
+#  owner node['kibana']['user']
+#  group node['kibana']['user']
+#  mode '777'
+#  action :create
+#  recursive TrueClass
+#end
+
+#execute "change permissions" do
+#   command "chown -R 777 #{node['kibana']['dir']}/kibana"
+#end
+  
 
 # Create service
 #
