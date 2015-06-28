@@ -54,6 +54,10 @@ ark_prefix_home = node['kibana']['dir'] || node['ark']['prefix_home']
 #|| [node['kibana']['host'], node['kibana']['repository'], filename].join('/')
 download_url = node['kibana']['download_url'] 
 
+ark 'libcap2-bin' do
+	action :install
+end
+
 ark 'kibana' do
   url download_url
   owner node['kibana']['user']
