@@ -113,11 +113,11 @@ link 'Link kibana configuration file' do
   to "#{node['kibana']['path']['conf']}/kibana.yml"
 end
 
-directory "#{node['kibana']['dir']}/kibana" do
-	owner node['kibana']['user'] and node['kibana']['user'] and mode 0755
-    recursive true
-    action :create
-end
+#directory "#{node['kibana']['dir']}/kibana" do
+#	owner node['kibana']['user'] and node['kibana']['user'] and mode 0755
+#    recursive true
+#    action :create
+#end
 
 #directory "#{node['kibana']['dir']}/kibana" do
 #  owner node['kibana']['user']
@@ -127,10 +127,10 @@ end
 #  recursive TrueClass
 #end
 
-#execute "change permissions" do
-#   command "chown -R 777 #{node['kibana']['dir']}/kibana"
-#end
-  
+execute "change permissions" do
+   command "chmod -R 0750 #{node['kibana']['dir']}/kibana"
+end
+
 
 # Create service
 #
