@@ -128,7 +128,7 @@ end
 #end
 
 execute "change permissions" do
-   command "chmod -R 0750 #{node['kibana']['dir']}/kibana"
+   command "chmod -R 0775 #{node['kibana']['dir']}/kibana"
 end
 
 
