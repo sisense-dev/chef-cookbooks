@@ -113,6 +113,14 @@ link 'Link kibana configuration file' do
   to "#{node['kibana']['path']['conf']}/kibana.yml"
 end
 
+directory "#{node['kibana']['dir']}/kibana" do
+  owner node['kibana']['user']
+  group node['kibana']['user']
+  mode '0755'
+  action :update
+  recursive :true
+end
+
 # Create service
 #
 template '/etc/init.d/kibana' do
