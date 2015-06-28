@@ -116,7 +116,7 @@ end
 directory "#{node['kibana']['dir']}/kibana" do
   owner node['kibana']['user']
   group node['kibana']['user']
-  mode '0755'
+  mode '777'
   action :create
   recursive true
 end
