@@ -118,7 +118,7 @@ directory "#{node['kibana']['dir']}/kibana" do
   group node['kibana']['user']
   mode '0755'
   action :create
-  recursive :true
+  recursive true
 end
 
 # Create service
