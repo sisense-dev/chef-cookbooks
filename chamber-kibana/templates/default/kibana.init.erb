@@ -1,163 +1,106 @@
-#!/usr/bin/env bash
+#!/bin/sh
 #
-# kibana
+# /etc/init.d/kibana4_init -- startup script for kibana4
+# bsmith@the408.com 2015-02-20; used elasticsearch init script as template
+# https://github.com/akabdog/scripts/edit/master/kibana4_init
 #
-<% if node.platform_family?('debian') %>
 ### BEGIN INIT INFO
-# Provides:          kibana
-# Required-Start:    $network $named
-# Required-Stop:     $network $named
+# Provides:          kibana4_init
+# Required-Start:    $network $remote_fs $named
+# Required-Stop:     $network $remote_fs $named
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Starts kibana
-# Description:       Starts kibana using start-stop-daemon
+# Short-Description: Starts kibana4_init
+# Description:       Starts kibana4_init using start-stop-daemon
 ### END INIT INFO
-<% else %>
-# chkconfig:   - 57 47
-# description: kibana
-# processname: kibana
-# config:      <%= node.kibana['path']['conf'] %>/kibana.yml
-<% end %>
 
-# Source networking configuration
-#
-if [ -f /etc/sysconfig/network ]; then source /etc/sysconfig/network; fi
+#configure this with wherever you unpacked kibana:
+KIBANA_BIN = default['kibana']['bindir']
 
-# Exit if networking is not up
-#
-[ "$NETWORKING" = "no" ] && exit
+PID_FILE=default['kibana']['pid_file']
+PATH=/bin:/usr/bin:/sbin:/usr/sbin:$KIBANA_BIN
+DAEMON=$KIBANA_BIN/kibana
+DESC="Kibana4"
+USER=default['kibana']['user'] 
 
-PIDFILE='<%= node.kibana['pid_file'] %>'
-CHECK_PID_RUNNING=$(ps axf | grep 'java' | grep 'kibana' | grep -v grep | awk '{print $1}')
+if [ `id -u` -ne 0 ]; then
+	echo "You need root privileges to run this script"
+	exit 1
+fi
 
+. /lib/lsb/init-functions
 
-start() {
-    if [ -f "$PIDFILE" ]; then
-      # PIDFILE EXISTS -- Kibana RUNNING?
-      echo -e "PID file found in $PIDFILE"
-      kibana_pid="$(cat $PIDFILE)"
-      pid_running="$( ps ax | grep 'java' | grep $kibana_pid )"
-
-      if [ ! -z "$pid_running" ] ; then
-        # EXIT IF Kibana IS ALREADY RUNNING
-	      echo -e "\033[31;1mPID $kibana_pid still alive, Kibana already running...\033[0m"
-	      return 1
-      fi
-    fi
-
-    echo -en "\033[1mStarting Kibana...\033[0m"
-    touch $PIDFILE && chown <%= node.kibana['user'] %> $PIDFILE
-    su <%= node.kibana['user'] %> -c "nohup <%= node.kibana['bindir'] %>/kibana > <%= node.kibana['path']['logs'] %>/kibana.log 2>&1 & echo \$! > $PIDFILE"
-
-    if [ $? ]; then
-      echo -e " \e[32m[OK]\e[0m"
-    else
-      echo -e " \e[31m[FAILURE]\e[0m"
-    fi
-
-    return $?
-}
-
-stop() {
-    if [[ -f $PIDFILE ]]; then
-      echo -n -e "\033[1mStopping kibana...\033[0m"
-
-      # REMOVE PIDFILE AND EXIT IF PROCESS NOT RUNNING
-      if [ ! $CHECK_PID_RUNNING ]; then
-        echo -e "\033[1mPID file found, but no matching process running?\033[0m"
-        echo    "Removing PID file..."
-        rm $PIDFILE
-        exit 0
-      fi
-
-      # KILL PROCESS
-      pid=$(cat $PIDFILE)
-      su <%= node.kibana['user'] %> -m -c "kill $(cat $PIDFILE)"
-      r=$?
-
-      # Check for process
-      timeout=0
-      while [ $(ps -p $pid | wc -l ) -gt '1' ]; do
-        echo -n '.'
-        (( timeout ++))
-        if [ $timeout -gt '30' ]; then return; fi
-        sleep 1
-      done
-
-      # Check for pidfile
-      timeout=0
-      while [ -f $PIDFILE  ]; do
-        echo -n '.'
-        (( timeout++ ))
-        if [ $timeout -gt '15' ]; then return; fi
-        sleep 1
-      done
-
-      echo;
-
-      return $r
-    else
-      echo -e "\033[1mNo PID file found -- kibana not running?\033[0m"
-    fi
-}
-
-restart() {
-    stop
-    timeout=30
-    while ps aux | grep 'java' | grep 'kibana'; do
-      echo -n '.'
-      (( timeout-- ))
-      if [ $timeout -lt '1' ]; then return; fi
-      sleep 1
-    done;
-    start
-}
-
-status() {
-  # GOT PIDFILE?
-  [ -f $PIDFILE ] && pid=$(cat $PIDFILE)
-
-  # RUNNING
-  if [[ $pid && -d "/proc/$pid" ]]; then
-    echo -e "\033[1;37;46mkibana running with PID $pid\033[0m"
-    # INCORRECT PID?
-    if [ "$pid" != "$CHECK_PID_RUNNING" ]; then
-      echo -e "\033[1;31;40m[!] Incorrect PID found in $PIDFILE: $pid\033[0m"
-      return 1
-    fi
-    return 0
-  fi
-
-  # NOT RUNNING
-  if [[ ! $pid || ! -d "/proc/$pid" ]]; then
-    echo -e "\033[1;33;40mkibana not running\033[0m"
-    return 3
-  fi
-
-  # STALE PID FOUND
-  if [[ ! -d "/proc/$pid" && -f $PIDFILE ]]; then
-    echo -e "\033[1;31;40m[!] Stale PID found in $PIDFILE\033[0m"
-    return 1
-  fi
-}
-
+if [ -r /etc/default/rcS ]; then
+	. /etc/default/rcS
+fi
 
 case "$1" in
   start)
-        start
+        log_daemon_msg "Starting $DESC"
+
+        pid=`pidofproc -p $PID_FILE kibana`
+        if [ -n "$pid" ] ; then
+                log_begin_msg "Already running."
+                echo "Already running."
+                log_end_msg 0
+                exit 0
+        fi
+
+        # Check if elasticsearch is up:
+        elasticsearchDOWN=true
+        timer=1
+        # Attempt to start, wait for elasticsearch, if it doesn't complete in 300 seconds (30*10), exit
+        while [ "$elasticsearchDOWN" = true ] && [ $timer -lt 10 ]; do
+                response=`curl 'http://localhost:9200'`
+
+                if (echo "$response" | grep -e "\"status\" : 200"); then
+                # Start Daemon
+                        elasticsearchDOWN=false
+                        start-stop-daemon --start --user "$USER" -c "$USER" --pidfile "$PID_FILE" --make-pidfile --background --exec $DAEMON
+                        echo $elasticsearchDOWN
+                else
+                        log_begin_msg "Elasticsearch not running, waiting..."
+                        echo "Elasticsearch not running, waiting..."
+                        log_end_msg 0
+                        sleep 10
+                fi
+                timer=$((timer+1))
+        done
+        log_end_msg $?
         ;;
   stop)
-        stop
-        ;;
-  restart)
-        restart
-        ;;
+	log_daemon_msg "Stopping $DESC"
+
+	if [ -f "$PID_FILE" ]; then
+		start-stop-daemon --stop --user "$USER" -c "$USER" --pidfile "$PID_FILE" \
+			--retry=TERM/20/KILL/5 >/dev/null
+		if [ $? -eq 1 ]; then
+			log_progress_msg "$DESC is not running but pid file exists, cleaning up"
+		elif [ $? -eq 3 ]; then
+			PID="`cat $PID_FILE`"
+			log_failure_msg "Failed to stop $DESC (pid $PID)"
+			exit 1
+		fi
+		rm -f "$PID_FILE"
+	else
+		log_progress_msg "(not running)"
+	fi
+	log_end_msg 0
+	;;
   status)
-        status $2
-        ;;
+	status_of_proc -p $PID_FILE kibana kibana && exit 0 || exit $?
+    ;;
+  restart|force-reload)
+	if [ -f "$PID_FILE" ]; then
+		$0 stop
+		sleep 1
+	fi
+	$0 start
+	;;
   *)
-        echo $"Usage: $0 {start|stop|restart|status [-v]|}"
-        exit 1
+	log_success_msg "Usage: $0 {start|stop|restart|force-reload|status}"
+	exit 1
+	;;
 esac
 
-exit $?
+exit 0

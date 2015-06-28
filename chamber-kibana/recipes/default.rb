@@ -148,6 +148,6 @@ template '/etc/init.d/kibana' do
 end
 
 service 'kibana' do
-  supports status: true, restart: true
-  action [:enable, :restart]
+  supports status: true, start: true
+  action [:enable, :start]
 end
