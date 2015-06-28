@@ -131,6 +131,9 @@ execute "change permissions" do
    command "chmod -R 0775 #{node['kibana']['dir']}/kibana"
 end
 
+execute "allow socket listening" do
+   command "setcap cap_net_bind_service=+ep #{node['kibana']['dir']}/kibana/node/bin/node"
+end
 
 # Create service
 #
