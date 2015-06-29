@@ -15,13 +15,12 @@
 ### END INIT INFO
 
 #configure this with wherever you unpacked kibana:
-KIBANA_BIN = <%= node['kibana']['bindir'] -%>
-
-PID_FILE = <%= node['kibana']['pid_file'] -%>
+KIBANA_BIN=<%= node['kibana']['bindir'] -%>
+PID_FILE=<%= node['kibana']['pid_file'] -%>
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:$KIBANA_BIN
 DAEMON=$KIBANA_BIN/kibana
 DESC="Kibana4"
-USER = <%= node['kibana']['user'] -%>
+USER=<%= node['kibana']['user'] -%>
 
 if [ `id -u` -ne 0 ]; then
 	echo "You need root privileges to run this script"
