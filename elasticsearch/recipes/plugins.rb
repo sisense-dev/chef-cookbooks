@@ -10,8 +10,3 @@ node[:elasticsearch][:plugins].each do | name, config |
   next if name == 'elasticsearch/elasticsearch-cloud-hq'  && !node.recipe?('hq')
   install_plugin name, config
 end
-
-
-service "elasticsearch" do
-	action :restart
-end
