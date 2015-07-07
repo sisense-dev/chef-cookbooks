@@ -48,7 +48,7 @@ default['logstash']['instance_default']['pattern_templates']           = {}
 default['logstash']['instance_default']['pattern_templates_variables'] = {}
 
 default['logstash']['instance_default']['base_config_cookbook']       = 'logstash'
-default['logstash']['instance_default']['base_config']    = '' # set if want data driven
+default['logstash']['instance_default']['base_config']    = 'settings.conf' # set if want data driven
 
 default['logstash']['instance_default']['config_file']                = ''
 default['logstash']['instance_default']['config_templates']           = {}
