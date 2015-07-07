@@ -2,3 +2,7 @@ node.default[:elasticsearch][:plugin][:mandatory] = Array(node[:elasticsearch][:
 
 install_plugin "royrusso/elasticsearch-HQ"
 
+service 'elasticsearch' do:
+	action :restart
+end
+
