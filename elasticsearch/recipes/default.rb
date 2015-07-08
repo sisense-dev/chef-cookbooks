@@ -65,7 +65,6 @@ end
 # Create service
 #
 template "/etc/init.d/elasticsearch" do
-  service_name  "elasticsearch"
   source "elasticsearch.init.erb"
   owner 'root' and mode 0755
 end
