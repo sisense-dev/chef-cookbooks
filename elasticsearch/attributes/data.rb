@@ -1,5 +1,31 @@
 [Chef::Recipe, Chef::Resource].each { |l| l.send :include, ::Extensions }
 
+{
+    "elasticsearch": {
+        "cluster": {
+            "name": "sisense-monitoring"
+        },
+        "discovery": {
+            "type": "ec2",
+            "ec2": {
+                "groups": "AWS-OpsWorks-Custom-Server",
+                "availability_zones": [
+                    "eu-west-1a",
+                    "eu-west-1b",
+                    "eu-west-1c"
+                ]
+            }
+        },
+        "cloud": {
+            "aws": {
+                "access_key": "AKIAITZVR2LT76LPKI4Q",
+                "secret_key": "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",
+                "region": "eu-west-1"
+            }
+        }
+    }
+}
+
 # Loads configuration settings from data bag 'elasticsearch/data' or from node attributes.
 #
 # In a data bag, you can define multiple devices to be formatted and/or mounted:

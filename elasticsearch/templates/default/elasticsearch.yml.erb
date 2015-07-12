@@ -100,26 +100,13 @@
 <%= print_value 'discovery.zen.ping.multicast.enabled' -%>
 <%= print_value 'discovery.zen.ping.unicast.hosts' -%>
 
-cluster.name: Asgard
-
-node.name: Thor
-discovery.type: ec2
-discovery.zen.ping.multicast.enabled: false
-discovery.ec2.groups: AWS-OpsWorks-Default-Server
-
-cloud.aws.region: eu-west-1
-cloud.aws.access_key: AKIAITZVR2LT76LPKI4Q,
-cloud.aws.secret_key: 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
-cloud.aws.availability_zones: eu-west-1a,eu-west-1b
-
-
 <%- if node.elasticsearch[:cloud] -%>
 <%= print_value 'cloud.node.auto_attributes' -%>
-#<%= print_value 'cloud.aws.access_key' -%>
-#<%= print_value 'cloud.aws.secret_key' -%>
-#<%= print_value 'cloud.aws.region' -%>
+<%= print_value 'cloud.aws.access_key' -%>
+<%= print_value 'cloud.aws.secret_key' -%>
+<%= print_value 'cloud.aws.region' -%>
 <%= print_value 'cloud.aws.ec2.endpoint' -%>
-#<%= print_value 'discovery.ec2.groups' -%>
+<%= print_value 'discovery.ec2.groups' -%>
 <%= print_value 'discovery.ec2.host_type' -%>
 <%= print_value 'discovery.ec2.availability_zones' -%>
 <%= print_value 'discovery.ec2.any_group' -%>
