@@ -24,7 +24,7 @@ default.elasticsearch[:download_url]  = nil
 
 # === NAMING
 #
-default.elasticsearch[:cluster][:name] = 'elasticsearch'
+default.elasticsearch[:cluster][:name] = 'sisense-monitoring-cluster'
 default.elasticsearch[:node][:name]    = node.name
 
 # === USER & PATHS
