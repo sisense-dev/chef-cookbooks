@@ -81,8 +81,8 @@ default.elasticsearch[:action][:disable_delete_all_indices] = true
 default.elasticsearch[:node][:max_local_storage_nodes] = 1
 
 default.elasticsearch[:discovery][:zen][:ping][:multicast][:enabled] = false
-node.elasticsearch[:discovery][:ec2][:availability_zones] = 'eu-west-1a','eu-west-1b'
-default.elasticsearch[:discovery][:ec2][:groups] = 'iif'
+node.elasticsearch[:discovery][:ec2][:availability_zones] = ['eu-west-1a','eu-west-1b']
+default.elasticsearch[:discovery][:ec2][:groups] = 'ilf'
 node.elasticsearch[:discovery][:type] = 'ec2'
 
 node.elasticsearch[:cloud][:aws][:access_key] = ENV['AWS_ACCESS_KEY']
