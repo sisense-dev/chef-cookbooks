@@ -1,0 +1,61 @@
+input {
+	sqs {
+		queue => "MonitorQueue"
+		region => "eu-west-1"
+		access_key_id => <%= print_value 'logstash.access_key' -%>
+		secret_access_key => <%= print_value 'logstash.secret_key' -%>
+		
+	}
+ 		
+}
+
+filter {
+	if "productLogs" in [type] {	
+		grok {
+			match => ["duration", "%{NUMBER:duration:float}"]
+			overwrite => ["duration"]	
+		}		
+		
+		grok {
+			match => ["queryResponeLengthBytes", "%{INT:queryResponeLengthBytes:int}"]
+			overwrite => ["queryResponeLengthBytes"]	
+		}
+
+		grok {
+			match => ["EC_DBFarmSizeBytes", "%{INT:EC_DBFarmSizeBytes:int}"]
+			overwrite => ["EC_DBFarmSizeBytes"]	
+		}		
+
+		grok {
+			match => ["concurrentQuery", "%{INT:concurrentQuery:int}"]
+			overwrite => ["concurrentQuery"]	
+		}	
+
+		grok {
+			match => ["concurrentBuild", "%{INT:concurrentBuild:int}"]
+			overwrite => ["concurrentBuild"]	
+		}
+		grok {
+			match => ["columnsCount", "%{INT:columnsCount:int}"]
+			overwrite => ["columnsCount"]	
+		}
+
+		grok {
+			match => ["RowsAfterFetch", "%{INT:RowsAfterFetch:int}"]
+			overwrite => ["RowsAfterFetch"]	
+		}			
+		
+		mutate {
+				remove_tag => [ "_grokparsefailure" ]	 
+			}	
+	}
+}
+
+output {
+  elasticsearch {
+        host => "10.111.112.225"                                                                                                                                                                                                                                                    
+        protocol => "http"
+		
+		} 
+}
+
