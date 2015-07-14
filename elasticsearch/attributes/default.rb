@@ -81,6 +81,7 @@ default.elasticsearch[:action][:disable_delete_all_indices] = true
 default.elasticsearch[:node][:max_local_storage_nodes] = 1
 
 default.elasticsearch[:discovery][:zen][:minimum_master_nodes] = 1
+default.elasticsearch[:discovery][:zen][:ping][:multicast][:enabled] = false
 default.elasticsearch[:gateway][:type] = 'local'
 default.elasticsearch[:gateway][:expected_nodes] = 1
 
