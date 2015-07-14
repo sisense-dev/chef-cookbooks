@@ -2,8 +2,8 @@ input {
 	sqs {
 		queue => "MonitorQueue"
 		region => "eu-west-1"
-		access_key_id => <%= print_value 'logstash.access_key' -%>
-		secret_access_key => <%= print_value 'logstash.secret_key' -%>
+		access_key_id => <%= node[:logstash][:access_key] %>
+		secret_access_key => <%= node[:logstash][:secret_access] %>
 		
 	}
  		
