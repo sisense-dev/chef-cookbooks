@@ -2,8 +2,8 @@ input {
 	sqs {
 		queue => "MonitorQueue"
 		region => "eu-west-1"
-		access_key_id => <%= node[:logstash][:access_key] %>
-		secret_access_key => <%= node[:logstash][:secret_key] %>
+		access_key_id => <%= node[:logstash][:access_key].to_s %>
+		secret_access_key => <%= node[:logstash][:secret_key].to_s %>
 		
 	}
  		
@@ -54,7 +54,7 @@ filter {
 output {
   elasticsearch {
 		protocol => "http"
-		host => <%= node[:logstash][:es_host] %>
+		host => <%= node[:logstash][:es_host].to_s %>
 		} 
 }
 
