@@ -1,0 +1,33 @@
+{
+    "elasticsearch": {
+        "discovery": {
+            "type": "ec2",
+            "ec2": {
+                "groups": "ilf",
+                "availability_zones": [
+                    "eu-west-1a",
+                    "eu-west-1b"
+                ],
+                "zen": {
+                    "ping": {
+                        "multicast": {
+                            "enabled": false
+                        }
+                    }
+                }
+            }
+        },
+        "cloud": {
+            "aws": {
+                "access_key": "****************",
+                "secret_key": "****************",
+                "region": "eu-west-1"
+            }
+        }
+    },
+   "logstash" : {
+		"access_key" : "****************",
+		"secret_key" : "****************",
+                "es_host" : "****************"
+	        }
+}
