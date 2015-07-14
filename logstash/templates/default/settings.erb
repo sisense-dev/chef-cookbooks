@@ -55,6 +55,8 @@ output {
   elasticsearch {
         host => "10.111.112.225"                                                                                                                                                                                                                                                    
         protocol => "http"
+		host => <%= node[:logstash][:es_host] %>
+		
 		
 		} 
 }
