@@ -7,7 +7,7 @@ default['kibana']['checksum']      = 'd593af567c5dd814e59fb2bc2e11a194add6caa0f5
 default['kibana']['host']          = 'http://download.elastic.co'
 default['kibana']['repository']    = 'kibana/kibana'
 default['kibana']['filename']      = nil
-default['kibana']['download_url']  = 'https://github.com/sisense-dev/kibana/archive/master.zip'
+default['kibana']['download_url']  = 'https://s3.amazonaws.com/data.sisense.com/Infra/sisenseeyes/kibana.tgz'
 
 # === DEPENDENCIES
 #
