@@ -20,15 +20,13 @@ end
 cron_d 'es-daily-backup' do
   minute  30
   hour    18
-  #command '/usr/share/backups-scripts/daily-backup-elasticsearch.sh'
-  command 'test1'
+  command '/usr/share/backups-scripts/daily-backup-elasticsearch.sh'
   user    'root'
 end
 
 cron_d 'kibana-daily-backup' do
   minute  30
   hour    19
-  #command '/usr/share/backup-scripts/daily-backup-kibana.sh'
-  command 'test2'
+  command '/usr/share/backup-scripts/daily-backup-kibana.sh'
   user    'root'
 end
