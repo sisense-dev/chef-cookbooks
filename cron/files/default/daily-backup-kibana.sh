@@ -1,0 +1,1 @@
+sudo curator --host localhost snapshot --most-recent 1 --repository backups --prefix .kibana
